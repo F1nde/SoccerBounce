@@ -138,6 +138,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 	cocos2d::Vec2 location = touch->getLocation();
 
 	// Ask ball if the click hit the ball
+	// If there is multiple balls -> check them all
 	if (ball_->clickCheck(location))
 	{
 		// Start game if this is the first click
@@ -176,7 +177,8 @@ bool GameScene::onContactSeparate(cocos2d::PhysicsContact& contact)
 		return true;
 	}
 	else if ((a->getCollisionBitmask() == BALL_COLLISION_BITMASK && b->getCollisionBitmask() == WALL_COLLISION_BITMASK)
-		|| (a->getCollisionBitmask() == WALL_COLLISION_BITMASK && b->getCollisionBitmask() == BALL_COLLISION_BITMASK))
+		|| (a->getCollisionBitmask() == WALL_COLLISION_BITMASK && b->getCollisionBitmask() == BALL_COLLISION_BITMASK)
+		|| (a->getCollisionBitmask() == BALL_COLLISION_BITMASK && b->getCollisionBitmask() == BALL_COLLISION_BITMASK))
 	{
 		// Ball hit wall
 		return true;
